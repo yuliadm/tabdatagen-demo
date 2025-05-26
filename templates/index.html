@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brownie Data Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        input { width: 80px; margin: 5px; }
+        .form-section { margin-bottom: 20px; }
+        .highlight { font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🍫 Brownie Data Generation Game</h1>
+    <form method="POST">
+        <div class="form-section">
+            <h3>Enter Ingredient Ratios (sum = 1.0)</h3>
+            {% for col in ['Sugar', 'Butter', 'Chocolate', 'Flour', 'Eggs'] %}
+                <label>{{ col }}: <input type="number" name="{{ col }}" step="0.01" required></label><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-section">
+            <h3>Enter Temperature and Time</h3>
+            <label>Temp (°C): <input type="number" name="Temp" step="1" required></label><br>
+            <label>Time (min): <input type="number" name="Time" step="1" required></label>
+        </div>
+
+        <button type="submit">✅ Validate</button>
+    </form>
+
+    {% if message %}
+        <p class="highlight">{{ message }}</p>
+    {% endif %}
+
+    {% if ai_values %}
+        <h3>🤖 AI Agent Suggestion</h3>
+        <ul>
+            {% for k, v in ai_values.items() %}
+                <li><strong>{{ k }}:</strong> {{ "%.4f"|format(v) }}</li>
+            {% endfor %}
+        </ul>
+        <p><strong>AI Score:</strong> {{ "%.4f"|format(ai_score) }}</p>
+    {% endif %}
+</body>
+</html>
