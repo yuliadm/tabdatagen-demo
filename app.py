@@ -10,7 +10,7 @@ data = pd.read_csv("brownies.csv")
 FEATURE_COLS = ['Sugar', 'Butter', 'Chocolate', 'Flour', 'Eggs', 'Temp', 'Time']
 INGREDIENT_COLS = ['Sugar', 'Butter', 'Chocolate', 'Flour', 'Eggs']
 real_stats = data[FEATURE_COLS].describe().loc[['mean', 'std']]
-THRESHOLD = -0.05  # reward score threshold for "winning"
+THRESHOLD = -0.50  # reward score threshold for "winning"
 
 # Define AI Agent
 class AIAgent:
@@ -45,7 +45,7 @@ def index():
             total = sum(human_values)
 
             if not all(0 <= val <= 1 for val in human_values):
-                raise ValueError("Each ingredient must be between 0 and 1.")
+                raise ValueError("Each ingredient ratio must be between 0 and 1.")
             if abs(total - 1.0) > 1e-4:
                 raise ValueError("Ingredient ratios must sum to 1.")
 
